@@ -1,0 +1,19 @@
+{
+  "name": "fake-streamer",
+  "version": "1.0.0",
+  "description": "Program to make a fake background AI that will play games and do other random stuff like a streamer",
+  "main": "index-server.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Milk",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.0.1"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "js-yaml": "^4.1.0",
+    "socket.io": "^4.7.5"
+  }
+}

@@ -1,0 +1,10 @@
+
+# chat properties
+msgFile: './data/chat-phrases.txt'
+num_viewers: 80
+num_chatters: 30
+
+# avatar properties
+avatarIMG: './data/avatars/avatar_dood.png'
+avatarBGColor: '#4CB3B5'
+avatarBGIMG: null

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <title>Fake Streamer</title>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="./styles.css">
+
+        <!-- test styles -->
+        <style>
+            
+
+            #avatar{
+                height: 30%;
+                text-align: center;
+                position:relative;
+                background-color: #000;
+            }
+            #avatar-outer{
+                position:relative;
+                display:inline-block;
+                width: 220px;
+                height:100%;
+                margin:auto;
+                border:1px solid #fff;
+            }
+            #avatar-canvas{
+                width:100%;
+                min-width: 96px;
+                min-height:96px;
+                image-rendering: pixelated;
+                position:absolute;
+                left:0;
+                bottom:0;
+            }
+            #right-sidebar{
+                width:75%;
+            }
+            #video{
+                height: 80%;
+                background-color: #6c718f;
+            }
+            #info{
+                height: 20%;
+                background-color: #000000;
+            }
+        </style>
+
+        <!-- scripts -->
+        <script src="./js/utils.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="left-sidebar">
+                <div id="chat">
+`                   <div id="chat-box">
+                        <div class="chat-msg"><span class='tier-1'>MasterMilkX:</span> hello world! this is a fake message i'm putting into a fake streaming app 🤩</div>
+                        <div class="chat-msg"><span class='tier-1'>MasterMilkX:</span> hi chat!</div>
+                    </div>
+                </div>
+                <div id="avatar">
+                    <div id="avatar-outer">
+                        <canvas id="avatar-canvas" width="64" height="64"></canvas>
+                    </div>
+                </div>
+            </div>  
+            <div id="right-sidebar">
+                <div id="video">
+
+                </div>
+                <div id="info">
+
+                </div>
+            </div>
+        </div>
+        <script src="./index-client.js"></script>
+        <!-- more scripts -->
+        <!-- <script src="./js/chat.js"></script> -->
+    </body>
+</html>

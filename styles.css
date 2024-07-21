@@ -1,0 +1,50 @@
+#container{
+    position:absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 99%;
+    height: 99%;
+    border: 1px solid black;
+}
+
+#left-sidebar{
+    width: 25%;
+    min-width:220px;
+}
+#chat{
+    height: 70%;
+    background-color: #363f72;
+    text-align:left;
+}
+#chat-box{
+    height: 95%;
+    width: 95%;
+    overflow-y: hidden;
+    margin:-2% auto;
+    background-color: #f1f1f1;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+}
+.chat-msg{
+    margin: 2px;
+    padding: 3px 5px;
+    font-size:80%;
+}
+.tier-1{
+    color: #ff0000;
+    font-weight: bold;
+}
+.tier-2{
+    color: #00ff00;
+    font-weight: bold;
+}
+.tier-3{
+    color: #0000ff;
+    font-weight: bold;
+}
+.guest{
+    color: #383838;
+    font-weight: bold;
+}
