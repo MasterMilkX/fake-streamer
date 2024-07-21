@@ -1,10 +1,8 @@
-// imports
-
+//-- imports
 const fs = require('fs');
-
 const utils = require('./utils.js');
 
-
+//-- data structures
 
 // chat users
 class ChatUser {
@@ -13,6 +11,19 @@ class ChatUser {
         this.rank = rank;
     }
 }
+
+
+// video data
+class VideoData {
+    constructor(video_link, video_timeout) {
+        this.video_link = video_link;
+        this.video_timeout = video_timeout;     // 10 seconds
+    }
+}
+
+
+
+
 
 // make fake users to interact
 function getChatUsers(num_chatters){
@@ -34,13 +45,32 @@ function getChatUsers(num_chatters){
     return USERS;
 }
 
+// get fake chat phrases
 function getChatMsgs(msgFile){
     return fs.readFileSync(msgFile).toString().split("\n");
 }
 
+// get streamer commentary phrases
 function getCommentary(cmtFile){
     return fs.readFileSync(cmtFile).toString().split("\n");
 }
 
 
-module.exports = {getChatUsers,getChatMsgs, getCommentary};
+// get the video links and their timestamps (split by ~~~ and in seconds)
+function getVideoSet(videoFile,shuffle=false){
+    let video_set = fs.readFileSync(videoFile).toString().split("\n");
+    let VIDEO_SET = [];
+    for(let i=0;i<video_set.length;i++){
+        let video = video_set[i].split("~~~");
+        VIDEO_SET.push(new VideoData(video[0], parseInt(video[1])));
+    }
+    if(shuffle){
+        return utils.shuffle(VIDEO_SET);
+    }
+
+    return VIDEO_SET;
+}
+
+
+
+module.exports = {getChatUsers,getChatMsgs, getCommentary, getVideoSet};

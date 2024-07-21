@@ -34,6 +34,12 @@ let ct = 0;                 // comment timeout before disappearing
 let tt = 0;                 // typewriter effect timeout
 
 
+// video
+let VIDEO_FRAME = document.getElementById("video-player");
+let VIDEO_SET = [];         // set of video links and their timeouts
+let VIDEO_INDEX = 0;        // current video index
+let vt = 0;                 // video timeout    (for changing videos)
+
 
 ///////////        HTML ELEMENTS        ///////////// 
 
@@ -222,6 +228,28 @@ function newComment(){
 }
 
 
+/////////    VIDEO    //////////
+
+function setVideoVolume(volume){
+    VIDEO_FRAME.volume = volume;
+}
+
+// play the video and set the timeout for the next video
+function setVideo(vid_dat){
+    VIDEO_FRAME.src = vid_dat.video_link;
+
+    // set the timeout for the video
+    clearTimeout(vt);
+    vt = setTimeout(function(){
+        VIDEO_INDEX++;
+        // loop back to the beginning
+        if(VIDEO_INDEX >= VIDEO_SET.length){
+            VIDEO_INDEX = 0;
+        }
+        setVideo(VIDEO_SET[VIDEO_INDEX]);
+    }, vid_dat.video_timeout*1000);
+}
+
 
 /////////    SERVER RECEPTION FUNCTIONS    //////////
 
@@ -253,7 +281,24 @@ socket.on('init-info', function(data) {
     COMMENT_SET = data.comments;
     newComment();
 
+    // set title
+    document.getElementById("stream-title").innerHTML = data.title;
+
     console.log("> Info running...");
+});
+
+socket.on('init-video', function(data) {
+
+    // set volume
+    setVideoVolume(data.volume);
+
+    // set video set
+    VIDEO_SET = data.video_set;
+    console.log("> Video set retrieved");
+
+    // start the video
+    setVideo(VIDEO_SET[0]);
+    console.log("> Video running...");
 });
 
 

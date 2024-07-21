@@ -21,3 +21,10 @@ commentary_audio_bits :
   - './data/audio/b7.mp3'
   - './data/audio/b8.mp3'
 commentary_volume : 0.25
+stream_title : "Just watchin Youtube vids!"
+
+
+# video properties
+video_volume : 0.4
+video_set_list : './data/video_list/video_list_A.txt'
+shuffle_vid : true

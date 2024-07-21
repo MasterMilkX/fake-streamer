@@ -101,8 +101,16 @@ io.on('connection', (socket) => {
             num_viewers:config.num_viewers, 
             comments:fileio.getCommentary(config.comment_set), 
             audio:config.commentary_audio_bits,
-            volume: config.commentary_volume
+            volume: config.commentary_volume,
+            title: config.stream_title
         });
+    }catch(err){
+        console.log(err);
+    }
+
+    // initialize the video (using config data)
+    try{
+        io.emit('init-video', {video_set:fileio.getVideoSet(config.video_set_list, config.shuffle_vid), volume:config.video_volume});
     }catch(err){
         console.log(err);
     }

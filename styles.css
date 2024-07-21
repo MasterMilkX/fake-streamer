@@ -1,3 +1,7 @@
+body{
+    background-color: #000;
+}
+
 #container{
     position:absolute;
     top: 0;
@@ -68,7 +72,6 @@
     width: 220px;
     height:100%;
     margin:auto;
-    border:1px solid #fff;
 }
 #avatar-canvas{
     width:100%;
@@ -78,4 +81,36 @@
     position:absolute;
     left:0;
     bottom:0;
+}
+
+
+/* INFO AND COMMENTARY */
+
+#info{
+    height: 20%;
+    background-color: #000000;
+}
+#stream-stats{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+.stream-stat{
+    min-width:20%;
+    font-size:24px;
+}
+#stream-title{
+    color: #00ff00;
+    text-align:left;
+}
+#stream-viewers{
+    color: white;
+    text-align: right;
+}
+#commentary{
+    padding: 10px 20px;
+    color: white;
+    overflow-y: hidden;
+    font-size:28px;
+    font-family: 'Courier New', Courier, monospace;
 }
