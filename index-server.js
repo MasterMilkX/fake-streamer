@@ -29,7 +29,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 // other JS files
-const chat = require('./js/chat.js');
+const fileio = require('./js/fileImports.js');
 const utils = require('./js/utils.js');
 
 
@@ -82,7 +82,7 @@ io.on('connection', (socket) => {
 
     // initialize the chat
     try{
-        io.emit('init-chat', {users:chat.getChatUsers(config.num_chatters),msgs:chat.getChatMsgs(config.msgFile)});
+        io.emit('init-chat', {users:fileio.getChatUsers(config.num_chatters),msgs:fileio.getChatMsgs(config.msgFile)});
 
     }catch(err){
         console.log(err);
@@ -91,6 +91,18 @@ io.on('connection', (socket) => {
     // initialize the avatar (using config data)
     try{
         io.emit('init-avatar', {avatar_img:config.avatarIMG, bg_img:config.avatarBGIMG, bg_color:config.avatarBGColor});
+    }catch(err){
+        console.log(err);
+    }
+
+    // initialize the info (using config data)
+    try{
+        io.emit('init-info', {
+            num_viewers:config.num_viewers, 
+            comments:fileio.getCommentary(config.comment_set), 
+            audio:config.commentary_audio_bits,
+            volume: config.commentary_volume
+        });
     }catch(err){
         console.log(err);
     }

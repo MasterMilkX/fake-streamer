@@ -14,6 +14,10 @@
     width: 25%;
     min-width:220px;
 }
+
+
+/* CHAT */
+
 #chat{
     height: 70%;
     background-color: #363f72;
@@ -47,4 +51,31 @@
 .guest{
     color: #383838;
     font-weight: bold;
+}
+
+
+/* AVATAR */
+
+#avatar{
+    height: 30%;
+    text-align: center;
+    position:relative;
+    background-color: #000;
+}
+#avatar-outer{
+    position:relative;
+    display:inline-block;
+    width: 220px;
+    height:100%;
+    margin:auto;
+    border:1px solid #fff;
+}
+#avatar-canvas{
+    width:100%;
+    min-width: 96px;
+    min-height:96px;
+    image-rendering: pixelated;
+    position:absolute;
+    left:0;
+    bottom:0;
 }

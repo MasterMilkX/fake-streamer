@@ -10,29 +10,6 @@
         <style>
             
 
-            #avatar{
-                height: 30%;
-                text-align: center;
-                position:relative;
-                background-color: #000;
-            }
-            #avatar-outer{
-                position:relative;
-                display:inline-block;
-                width: 220px;
-                height:100%;
-                margin:auto;
-                border:1px solid #fff;
-            }
-            #avatar-canvas{
-                width:100%;
-                min-width: 96px;
-                min-height:96px;
-                image-rendering: pixelated;
-                position:absolute;
-                left:0;
-                bottom:0;
-            }
             #right-sidebar{
                 width:75%;
             }
@@ -43,6 +20,30 @@
             #info{
                 height: 20%;
                 background-color: #000000;
+            }
+            #stream-stats{
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+            }
+            .stream-stat{
+                min-width:20%;
+                font-size:24px;
+            }
+            #stream-title{
+                color: #00ff00;
+                text-align:left;
+            }
+            #stream-viewers{
+                color: white;
+                text-align: right;
+            }
+            #commentary{
+                padding: 10px 20px;
+                color: white;
+                overflow-y: hidden;
+                font-size:28px;
+                font-family: 'Courier New', Courier, monospace;
             }
         </style>
 
@@ -69,7 +70,13 @@
 
                 </div>
                 <div id="info">
+                    <div id="stream-stats">
+                        <div class="stream-stat" id="stream-title">Nothing...</div>
+                        <div class="stream-stat" id="stream-viewers">🤖: 0</div>
+                    </div>
+                    <div id="commentary">
 
+                    </div>
                 </div>
             </div>
         </div>

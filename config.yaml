@@ -1,6 +1,6 @@
 
 # chat properties
-msgFile: './data/chat-phrases.txt'
+msgFile: './data/txt/chat-phrases.txt'
 num_viewers: 80
 num_chatters: 30
 
@@ -8,3 +8,16 @@ num_chatters: 30
 avatarIMG: './data/avatars/avatar_dood.png'
 avatarBGColor: '#4CB3B5'
 avatarBGIMG: null
+
+# commentary properties
+comment_set: './data/txt/streamer-comment-phrases.txt'
+commentary_audio_bits : 
+  - './data/audio/b1.mp3'
+  - './data/audio/b2.mp3'
+  - './data/audio/b3.mp3'
+  - './data/audio/b4.mp3'
+  - './data/audio/b5.mp3'
+  - './data/audio/b6.mp3'
+  - './data/audio/b7.mp3'
+  - './data/audio/b8.mp3'
+commentary_volume : 0.25

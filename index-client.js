@@ -22,6 +22,18 @@ let AVATAR_IMG = new Image();
 let et = 0;
 
 
+// info
+let CUR_VIEWER_NUM = 0;
+let COMMENT_AUDIO = [];
+let last_press = 0;         // last index of the audio played (copy key)
+
+var COMMENT_SET = [];
+let CUR_COMMENT = "";
+let COMMENT_INDEX = 0;
+let ct = 0;                 // comment timeout before disappearing
+let tt = 0;                 // typewriter effect timeout
+
+
 
 ///////////        HTML ELEMENTS        ///////////// 
 
@@ -73,6 +85,8 @@ function newMsg(user, message){
         CHAT_BOX.removeChild(CHAT_BOX.children[0]);
     }
 }
+
+
 
 
 // --- AVATAR --- //
@@ -129,8 +143,83 @@ function changeEmote(){
 
     clearTimeout(et);
     et = setTimeout(function(){changeEmote()}, randInt(3000, 10000));       // change expression every 1-5 seconds
+
+    // make commentary if not already
+    if(CUR_COMMENT == ""){
+        newComment();
+    }
 }
 
+
+
+
+
+// --- INFO AND COMMENTARY --- //
+
+// viewers
+function setViewers(start_num){
+    document.getElementById("stream-viewers").innerHTML = "🤖: " + start_num;
+    CUR_VIEWER_NUM = start_num;
+}
+
+function flucViewers(){
+    let new_num = CUR_VIEWER_NUM + randInt(-5, 5);
+    new_num = Math.max(0, new_num);
+    document.getElementById("stream-viewers").innerHTML = "🤖: " + new_num;
+    CUR_VIEWER_NUM = new_num;
+    setTimeout(function(){flucViewers();}, randInt(2000, 5000));
+}
+
+
+// streamer commentary
+
+// set the audio clips for the commentary character bits
+function setCommentaryAudio(audio_set, volume=0.3){
+    for(let i=0;i<audio_set.length;i++){
+        let audio = new Audio(audio_set[i]);
+        audio.volume = volume;
+        COMMENT_AUDIO.push(audio);
+    }
+}
+
+// typewriter effect for the commentary
+function typeComment(cmt){
+    CUR_COMMENT = cmt;
+    COMMENT_INDEX = 0;
+    document.getElementById("commentary").innerHTML = "";
+    clearTimeout(tt);
+
+    // start typing
+    tt = setInterval(function(){
+        document.getElementById("commentary").innerHTML += CUR_COMMENT.charAt(COMMENT_INDEX);
+        COMMENT_INDEX++;
+
+        // play random audio clip
+        let audio_index = CUR_COMMENT[COMMENT_INDEX] == CUR_COMMENT[COMMENT_INDEX-1] ? last_press : randInt(0, COMMENT_AUDIO.length-1);
+        last_press = audio_index;
+        COMMENT_AUDIO[audio_index].play();
+
+        // reached the end of the comment, so reset after a delay
+        if(COMMENT_INDEX >= CUR_COMMENT.length){
+            clearInterval(tt);
+            ct = setTimeout(function(){clearComment();}, 5000);
+        }
+    }, 100);
+}
+
+// clear the commentary
+function clearComment(){
+    document.getElementById("commentary").innerHTML = "";
+    CUR_COMMENT = "";
+    clearTimeout(ct);
+    clearTimeout(tt);
+}
+
+// new commentary
+function newComment(){
+    let cmt = randArr(COMMENT_SET);
+    typeComment(cmt);
+}
 
 
 
@@ -147,6 +236,24 @@ socket.on('init-avatar', function(data) {
 
     changeEmote();
     console.log("> Avatar running...");
+});
+
+socket.on('init-info', function(data) {
+
+    console.log("> Info received: " + data.num_viewers);
+
+    // fluctuating viewers
+    setViewers(data.num_viewers);
+    flucViewers();
+
+    // commentary audio
+    setCommentaryAudio(data.audio, data.volume);
+
+    // commentary phrases
+    COMMENT_SET = data.comments;
+    newComment();
+
+    console.log("> Info running...");
 });
 
 
